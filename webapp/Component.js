@@ -31,7 +31,30 @@ sap.ui.define([
 					viewPath: "MasterPageExample.view",
 					targetAggregation: "detailPages",
 					clearTarget: false
-				}
+						//clearTarget = When using a sap.ui.ux3.Shell this should be true. For a sap.m.NavContainer it should be false.
+				},
+				routes: [{
+					pattern: "",
+					name: "main",
+					view: "Master",
+					targetAggregation: "masterPages",
+					targetControl: "idAppControl",
+					subroutes: [{
+						pattern: "{product}/:tab:",
+						name: "product",
+						view: "Detail"
+					}]
+				}, {
+					name: "catchallMaster",
+					view: "Master",
+					targetAggregation: "masterPages",
+					targetControl: "idAppControl",
+					subroutes: [{
+						pattern: ":all*:",
+						name: "catchallDetail",
+						view: "NotFound"
+					}]
+				}]
 			}
 		},
 
